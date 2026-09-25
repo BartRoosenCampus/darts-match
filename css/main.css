@@ -1,0 +1,334 @@
+:root {
+    --bg-color: #0a0d14;
+    --card-bg: #131924;
+    --border-color: #232d3f;
+
+    /* Neon Dashboard Accent Colors */
+    --cyan-glow: #00f0ff;
+    --emerald-glow: #10b981;
+    --amber-glow: #f59e0b;
+
+    /* Action Button Themes */
+    --mis-bg: linear-gradient(180deg, #7f1d1d 0%, #3b0707 100%);
+    --mis-border: #ef4444;
+
+    /* Yellow for Single */
+    --single-bg: linear-gradient(180deg, #854d0e 0%, #3f2203 100%);
+    --single-border: #eab308;
+
+    /* Orange for Double */
+    --double-bg: linear-gradient(180deg, #9a3412 0%, #431407 100%);
+    --double-border: #f97316;
+
+    /* Green for Triple */
+    --triple-bg: linear-gradient(180deg, #15803d 0%, #052e16 100%);
+    --triple-border: #22c55e;
+    --triple-glow: #39ff14;
+
+    /* Reset & Danger Colors */
+    --red-warning: #991b1b;
+    --red-warning-border: #ef4444;
+
+    --text-main: #ffffff;
+    --text-sub: #64748b;
+
+    --radius-pill: 50%;
+    --radius-card: 16px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background-image: url("../images/bg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+#app-logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 80px;
+    width: 80px;
+}
+
+.app-container, body > * {
+    width: 100%;
+    max-width: 440px;
+}
+
+/* ==========================================
+   DASHBOARD INSTRUMENT CLUSTER
+   ========================================== */
+#dashboard {
+    display: flex;
+    flex-direction: row;      /* Side-by-side */
+    align-items: flex-end;    /* Bottom alignment */
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 1rem 0 1.5rem 0;
+    width: 100%;
+}
+
+/* Base style for all circular dashboard gauges */
+#dashboard > div {
+    background: radial-gradient(circle at 50% 40%, #1e2838 0%, #0d121c 100%);
+    display: flex;
+    align-items: center;      /* Vertical center alignment */
+    justify-content: center;  /* Horizontal center alignment */
+    text-align: center;
+    border-radius: var(--radius-pill);
+    box-sizing: border-box;
+}
+
+/* 1. LEFT GAUGE: #darts_thrown */
+#darts_thrown {
+    width: 100px;
+    height: 100px;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--emerald-glow);
+    border: 3px solid #1e293b;
+    box-shadow:
+            0 0 15px rgba(16, 185, 129, 0.25),
+            inset 0 0 15px rgba(0, 0, 0, 0.9),
+            0 0 3px var(--emerald-glow);
+    text-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
+}
+
+/* 2. CENTER GAUGE: #to_throw */
+#to_throw {
+    width: 150px;
+    height: 150px;
+    font-size: 50px;
+    font-weight: 900;
+    color: var(--cyan-glow);
+    border: 3px solid #334155;
+    box-shadow:
+            0 0 25px rgba(0, 240, 255, 0.3),
+            inset 0 0 20px rgba(0, 0, 0, 0.9),
+            0 0 4px var(--cyan-glow);
+    text-shadow: 0 0 16px rgba(0, 240, 255, 0.7);
+}
+
+/* 3. RIGHT GAUGE: #to_beat */
+#to_beat {
+    width: 100px;
+    height: 100px;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--amber-glow);
+    border: 3px solid #1e293b;
+    box-shadow:
+            0 0 15px rgba(245, 158, 11, 0.25),
+            inset 0 0 15px rgba(0, 0, 0, 0.9),
+            0 0 3px var(--amber-glow);
+    text-shadow: 0 0 10px rgba(245, 158, 11, 0.6);
+}
+
+/* ==========================================
+   TOUCH BUTTONS AREA
+   ========================================== */
+#buttons_area {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+#buttons_area button {
+    color: var(--text-main);
+    border-radius: var(--radius-card);
+    padding: 1.25rem 1rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    cursor: pointer;
+    min-height: 68px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    transition: transform 0.05s ease, border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+#buttons_area button:active {
+    transform: scale(0.96);
+}
+
+/* 1. MISS BUTTON (RED) */
+.btn_mis {
+    background: var(--mis-bg);
+    border: 1px solid var(--mis-border);
+}
+
+.btn_mis:active {
+    border-color: #ff003c;
+    background: var(--mis-border);
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.8);
+}
+
+/* 2. SINGLE BUTTON (YELLOW) */
+.btn_single {
+    background: var(--single-bg);
+    border: 1px solid var(--single-border);
+    color: #fffbeb;
+    text-shadow: 0 0 8px rgba(234, 179, 8, 0.6);
+}
+
+.btn_single:active {
+    border-color: #facc15;
+    background: var(--single-border);
+    color: #000000;
+    box-shadow: 0 0 18px rgba(234, 179, 8, 0.9);
+}
+
+/* 3. DOUBLE BUTTON (ORANGE) */
+.btn_double {
+    background: var(--double-bg);
+    border: 1px solid var(--double-border);
+}
+
+.btn_double:active {
+    border-color: #ff7700;
+    background: var(--double-border);
+    box-shadow: 0 0 15px rgba(249, 115, 22, 0.8);
+}
+
+/* 4. TRIPLE BUTTON (GREEN) */
+.btn_triple {
+    background: var(--triple-bg);
+    border: 1px solid var(--triple-border);
+}
+
+.btn_triple:active {
+    border-color: var(--triple-glow);
+    background: var(--triple-border);
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.9);
+}
+
+/* ==========================================
+   STATISTICS AREA (HISTORY + PIE CHART)
+   ========================================== */
+#statistics {
+    display: flex;
+    flex-direction: row;
+    gap: 0.85rem;
+    width: 100%;
+    align-items: stretch;
+}
+
+/* HISTORY LOG */
+#history {
+    flex: 1;
+    background-color: var(--card-bg);
+    border-radius: var(--radius-card);
+    padding: 0.75rem;
+    height: 160px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border: 1px solid var(--border-color);
+
+    /* Firefox custom scrollbar styling */
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-color) transparent;
+}
+
+/* WebKit (Chrome, Safari, Edge) Scrollbar Customization */
+
+/* 1. Blended Dark Scrollbar Style (Active) */
+#history::-webkit-scrollbar {
+    width: 6px;
+}
+
+#history::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#history::-webkit-scrollbar-thumb {
+    background-color: var(--border-color);
+    border-radius: 4px;
+}
+
+#history::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text-sub);
+}
+
+#history div {
+    padding: 0.5rem 0.6rem;
+    background-color: #0a0d14;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-sub);
+}
+
+#history div:first-child {
+    color: var(--cyan-glow);
+    border-left: 3px solid var(--cyan-glow);
+}
+
+/* PIE CHART CONTAINER */
+#pie_chart {
+    flex: 1;
+    background-color: var(--card-bg);
+    border-radius: var(--radius-card);
+    padding: 0.75rem;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-color);
+    position: relative;
+}
+
+#pie_chart canvas {
+    max-width: 100% !important;
+    max-height: 100% !important;
+}
+
+/* ==========================================
+   RESET CONTAINER & DANGER BUTTONS
+   ========================================== */
+#reset {
+    margin-top: 1rem;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+
+/* Unified Reset & Action Control Buttons */
+#stepBackBtn, #resetBtn, #completeReset {
+    background: linear-gradient(180deg, #7f1d1d 0%, #450a0a 100%);
+    color: var(--text-main);
+    border: 1px solid var(--red-warning-border);
+    border-radius: var(--radius-card);
+    padding: 1rem 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    min-height: 68px;
+    box-shadow: 0 6px 15px rgba(127, 29, 29, 0.3);
+    transition: transform 0.05s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+#stepBackBtn:active, #resetBtn:active, #completeReset:active {
+    transform: scale(0.96);
+    background: var(--red-warning-border);
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.7);
+}
