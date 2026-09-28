@@ -1,6 +1,7 @@
 "use strict";
 
-import {Hattrick} from "./classes/Hattrick.js";
+import {Settings} from "./classes/Settings.js";
+import {Game} from "./classes/Game.js";
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
@@ -10,4 +11,11 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-const hattrick = new Hattrick();
+const settings = new Settings();
+const game = new Game(settings);
+
+const test = document.getElementById('test');
+
+test.addEventListener('click', e => {
+    console.log(game);
+});
