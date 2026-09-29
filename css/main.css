@@ -59,6 +59,11 @@ body {
     background-position: center;
 }
 
+/* Force visibility toggle to work properly */
+.noShow {
+    display: none !important;
+}
+
 #app-logo {
     position: absolute;
     top: 0;
@@ -77,26 +82,24 @@ body {
    ========================================== */
 #dashboard {
     display: flex;
-    flex-direction: row;      /* Side-by-side */
-    align-items: flex-end;    /* Bottom alignment */
+    flex-direction: row;
+    align-items: flex-end;
     justify-content: center;
     gap: 0.75rem;
     padding: 1rem 0 1.5rem 0;
     width: 100%;
 }
 
-/* Base style for all circular dashboard gauges */
 #dashboard > div {
     background: radial-gradient(circle at 50% 40%, #1e2838 0%, #0d121c 100%);
     display: flex;
-    align-items: center;      /* Vertical center alignment */
-    justify-content: center;  /* Horizontal center alignment */
+    align-items: center;
+    justify-content: center;
     text-align: center;
     border-radius: var(--radius-pill);
     box-sizing: border-box;
 }
 
-/* 1. LEFT GAUGE: #darts_thrown */
 #darts_thrown {
     width: 100px;
     height: 100px;
@@ -111,7 +114,6 @@ body {
     text-shadow: 0 0 10px rgba(16, 185, 129, 0.6);
 }
 
-/* 2. CENTER GAUGE: #to_throw */
 #to_throw {
     width: 150px;
     height: 150px;
@@ -126,7 +128,6 @@ body {
     text-shadow: 0 0 16px rgba(0, 240, 255, 0.7);
 }
 
-/* 3. RIGHT GAUGE: #to_beat */
 #to_beat {
     width: 100px;
     height: 100px;
@@ -167,7 +168,6 @@ body {
     transform: scale(0.96);
 }
 
-/* 1. MISS BUTTON (RED) */
 .btn_mis {
     background: var(--mis-bg);
     border: 1px solid var(--mis-border);
@@ -179,7 +179,6 @@ body {
     box-shadow: 0 0 15px rgba(239, 68, 68, 0.8);
 }
 
-/* 2. SINGLE BUTTON (YELLOW) */
 .btn_single {
     background: var(--single-bg);
     border: 1px solid var(--single-border);
@@ -194,7 +193,6 @@ body {
     box-shadow: 0 0 18px rgba(234, 179, 8, 0.9);
 }
 
-/* 3. DOUBLE BUTTON (ORANGE) */
 .btn_double {
     background: var(--double-bg);
     border: 1px solid var(--double-border);
@@ -206,7 +204,6 @@ body {
     box-shadow: 0 0 15px rgba(249, 115, 22, 0.8);
 }
 
-/* 4. TRIPLE BUTTON (GREEN) */
 .btn_triple {
     background: var(--triple-bg);
     border: 1px solid var(--triple-border);
@@ -229,7 +226,6 @@ body {
     align-items: stretch;
 }
 
-/* HISTORY LOG */
 #history {
     flex: 1;
     background-color: var(--card-bg);
@@ -241,15 +237,10 @@ body {
     flex-direction: column;
     gap: 0.5rem;
     border: 1px solid var(--border-color);
-
-    /* Firefox custom scrollbar styling */
     scrollbar-width: thin;
     scrollbar-color: var(--border-color) transparent;
 }
 
-/* WebKit (Chrome, Safari, Edge) Scrollbar Customization */
-
-/* 1. Blended Dark Scrollbar Style (Active) */
 #history::-webkit-scrollbar {
     width: 6px;
 }
@@ -281,7 +272,6 @@ body {
     border-left: 3px solid var(--cyan-glow);
 }
 
-/* PIE CHART CONTAINER */
 #pie_chart {
     flex: 1;
     background-color: var(--card-bg);
@@ -311,7 +301,6 @@ body {
     gap: 0.5rem;
 }
 
-/* Unified Reset & Action Control Buttons */
 #stepBackBtn, #resetBtn, #completeReset {
     background: linear-gradient(180deg, #7f1d1d 0%, #450a0a 100%);
     color: var(--text-main);
@@ -336,7 +325,7 @@ body {
 /* ==========================================
    SETTINGS PANEL AREA
    ========================================== */
-#settings-panel {
+#settings_panel {
     background-color: var(--card-bg);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-card);
@@ -348,8 +337,8 @@ body {
     margin-top: 1rem;
 }
 
-/* Input Fields */
-#settings-panel .player {
+#settings_panel .player,
+#settings_panel select {
     width: 100%;
     background-color: var(--bg-color);
     border: 1px solid var(--border-color);
@@ -362,24 +351,28 @@ body {
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-#settings-panel .player::placeholder {
+#settings_panel .player::placeholder {
     color: var(--text-sub);
 }
 
-#settings-panel .player:focus {
+#settings_panel .player:focus,
+#settings_panel select:focus {
     border-color: var(--cyan-glow);
     box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
 }
 
-/* Button Row Layouts */
-#settings-panel > div:has(button) {
+#settings_panel select option {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+}
+
+#settings_panel > div:has(button) {
     display: flex;
     gap: 0.5rem;
 }
 
-/* Base Settings Buttons */
-#settings-panel .settings-btn,
-#settings-panel .setting-btn {
+#settings_panel .settings-btn,
+#settings_panel .setting-btn {
     flex: 1;
     background: radial-gradient(circle at 50% 40%, #1e2838 0%, #0d121c 100%);
     color: var(--text-sub);
@@ -392,14 +385,13 @@ body {
     transition: transform 0.05s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-#settings-panel .settings-btn:active,
-#settings-panel .setting-btn:active {
+#settings_panel .settings-btn:active,
+#settings_panel .setting-btn:active {
     transform: scale(0.96);
 }
 
-/* Default / Active Selected Buttons (Cyan Glow Accent) */
-#settings-panel .settings-btn.default,
-#settings-panel .setting-btn.default {
+#settings_panel .settings-btn.default,
+#settings_panel .setting-btn.default {
     color: var(--cyan-glow);
     border-color: var(--cyan-glow);
     background: radial-gradient(circle at 50% 40%, #193847 0%, #081a24 100%);
@@ -409,9 +401,8 @@ body {
     text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
 }
 
-/* Primary CTA: Game On Button (Emerald Neon Glow) */
-#settings-panel #game_on,
-#settings-panel .game-on-btn {
+#settings_panel #game_on,
+#settings_panel .game-on-btn {
     width: 100%;
     background: linear-gradient(180deg, #059669 0%, #064e3b 100%);
     color: #ffffff;
@@ -430,11 +421,189 @@ body {
     transition: transform 0.05s ease, background 0.15s ease, box-shadow 0.15s ease;
 }
 
-#settings-panel #game_on:active,
-#settings-panel .game-on-btn:active {
+#settings_panel #game_on:active,
+#settings_panel .game-on-btn:active {
     transform: scale(0.97);
     background: var(--emerald-glow);
     color: #000000;
     box-shadow: 0 0 20px rgba(16, 185, 129, 0.9);
     text-shadow: none;
+}
+
+/* ==========================================
+   BULL PANEL AREA
+   ========================================== */
+#bull_panel {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-card);
+    padding: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    margin-top: 1rem;
+}
+
+#bull_panel h3 {
+    width: 100%;
+    color: var(--cyan-glow);
+    font-size: 1.2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+    text-align: center;
+    margin-bottom: 0.25rem;
+}
+
+#bull_panel button {
+    flex: 1;
+    min-width: 0;
+    background: radial-gradient(circle at 50% 40%, #1e2838 0%, #0d121c 100%);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    color: var(--text-main);
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.05s ease, border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+#bull_panel button:active {
+    transform: scale(0.96);
+}
+
+#bull_panel button:hover {
+    border-color: var(--cyan-glow);
+    color: var(--cyan-glow);
+    background: radial-gradient(circle at 50% 40%, #193847 0%, #081a24 100%);
+    box-shadow:
+            0 0 12px rgba(0, 240, 255, 0.25),
+            inset 0 0 10px rgba(0, 240, 255, 0.15);
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+}
+
+/* ==========================================
+   GAME PANEL AREA (2 Rows: Top = 2 Columns, Bottom = Keypad)
+   ========================================== */
+#game_panel {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-card);
+    padding: 1.25rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    margin-top: 1rem;
+}
+
+#game_panel #bull_winner,
+#game_panel #bull_lozer {
+    grid-column: span 1; /* Each takes half of the top row */
+    min-width: 0;
+    background: radial-gradient(circle at 50% 40%, #1e2838 0%, #0d121c 100%);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.85rem 1rem;
+    color: var(--text-main);
+    font-size: 1rem;
+    font-weight: 700;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================
+   SCORE & TURN INDICATOR STYLES
+   ========================================== */
+.score {
+    font-weight: 800;
+    font-size: 3.5rem;
+    color: var(--cyan-glow);
+    text-shadow: 0 0 12px rgba(0, 240, 255, 0.5);
+}
+
+.MyTurn {
+    background: radial-gradient(circle at 50% 40%, #193847 0%, #081a24 100%) !important;
+    border-color: var(--cyan-glow) !important;
+    color: var(--cyan-glow) !important;
+    box-shadow:
+            0 0 18px rgba(0, 240, 255, 0.35),
+            inset 0 0 12px rgba(0, 240, 255, 0.2) !important;
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.6);
+    position: relative;
+}
+
+.MyTurn::after {
+    content: " • THROWING";
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    vertical-align: middle;
+    opacity: 0.85;
+}
+
+/* ==========================================
+   KEYPAD (NUMBER PAD) STYLING - Second Row
+   ========================================== */
+#key_pad {
+    grid-column: span 2; /* Spans the entire width of the 2-column grid */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    background-color: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+    width: 100%;
+}
+
+#key_pad_screen {
+    grid-column: span 3;
+    background: radial-gradient(circle at 50% 40%, #1e2838 0%, #0d121c 100%);
+    border: 2px solid #334155;
+    border-radius: 8px;
+    min-height: 54px;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--cyan-glow);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.9), 0 0 8px rgba(0, 240, 255, 0.2);
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+    word-break: break-all;
+}
+
+.key_pad_key {
+    background: radial-gradient(circle at 50% 40%, #1e2838 0%, #0d121c 100%);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    min-height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-main);
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.05s ease, background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.key_pad_key:active {
+    transform: scale(0.95);
+    background: radial-gradient(circle at 50% 40%, #193847 0%, #081a24 100%);
+    border-color: var(--cyan-glow);
+    color: var(--cyan-glow);
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.3), inset 0 0 8px rgba(0, 240, 255, 0.2);
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+}
+
+.key_pad_key:hover {
+    border-color: var(--text-sub);
 }

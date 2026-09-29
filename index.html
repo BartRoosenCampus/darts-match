@@ -10,13 +10,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-<div id="settings-panel">
-    <div>
-        <input class="player" type="text" data-id="player_1" placeholder="Player 1">
-    </div>
-    <div>
-        <input class="player" type="text" data-id="player_2" placeholder="Player 2">
-    </div>
+<div id="settings_panel">
+    <div id="select_player_1"></div>
+    <div id="select_player_2"></div>
     <div>
         <button class="start_at settings-btn" type="button" data-start-at="170">170</button>
         <button class="start_at settings-btn" type="button" data-start-at="301">301</button>
@@ -30,7 +26,29 @@
         <button class="setting-btn game-on" id="game_on">Game On</button>
     </div>
 </div>
-<div id="bull_panel"></div>
-<button id="test">TEST</button>
+<div id="bull_panel" class="noShow">
+    <h3>Who won the bull?</h3>
+    <button class="bull_winner" type="button" id="bull_player_1"></button>
+    <button class="bull_winner" type="button" id="bull_player_2"></button>
+</div>
+<div id="game_panel" class="noShow">
+    <div id="bull_winner" class="MyTurn"></div>
+    <div id="bull_lozer"></div>
+    <div id="key_pad">
+        <div id="key_pad_screen"></div>
+        <div class="key_pad_key" data-number="1">1</div>
+        <div class="key_pad_key" data-number="2">2</div>
+        <div class="key_pad_key" data-number="3">3</div>
+        <div class="key_pad_key" data-number="4">4</div>
+        <div class="key_pad_key" data-number="5">5</div>
+        <div class="key_pad_key" data-number="6">6</div>
+        <div class="key_pad_key" data-number="7">7</div>
+        <div class="key_pad_key" data-number="8">8</div>
+        <div class="key_pad_key" data-number="9">9</div>
+        <div class="key_pad_key" data-number="B">B</div>
+        <div class="key_pad_key" data-number="0">0</div>
+        <div class="key_pad_key" data-number="E">E</div>
+    </div>
+</div>
 </body>
 </html>
