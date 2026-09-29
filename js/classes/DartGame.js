@@ -74,6 +74,22 @@ export class DartGame {
         this.page.gameOn.addEventListener("click", () => {
             this.gameOn();
         });
+
+        for (const keyPadKey of this.page.key_pad_keys) {
+            keyPadKey.addEventListener('click', () => {
+
+                if ("B" === keyPadKey.dataset.number) {
+                    this.page.key_pad_screen.innerText = this.page.key_pad_screen.innerText.slice(0, -1);
+                } else if ("E" === keyPadKey.dataset.number) {
+                    if ("" === this.page.key_pad_screen.innerText) {
+                        this.page.key_pad_screen.innerText = 0;
+
+                    }
+                } else {
+                    this.page.key_pad_screen.innerText = `${this.page.key_pad_screen.innerText}${keyPadKey.dataset.number}`;
+                }
+            });
+        }
     }
 
     gameOn() {

@@ -15,6 +15,7 @@ const page = {
     bestOfButtons: document.querySelectorAll(".best_of"),
     playerFields: document.querySelectorAll(".player"),
     bullWinnerButtons: document.querySelectorAll(".bull_winner"),
+    key_pad_keys: document.querySelectorAll(".key_pad_key"),
     gameOn: document.getElementById("game_on"),
     bull_panel: document.getElementById("bull_panel"),
     select_player_1: document.getElementById("select_player_1"),
@@ -25,6 +26,7 @@ const page = {
     game_panel: document.getElementById("game_panel"),
     bull_winner: document.getElementById("bull_winner"),
     bull_lozer: document.getElementById("bull_lozer"),
+    key_pad_screen: document.getElementById("key_pad_screen"),
 }
 
 const dartGame = new DartGame(page);
