@@ -1,5 +1,8 @@
 "use strict";
 
+import {Player} from "./Player.js";
+import {Game} from "./Game.js";
+
 export class DartGame {
     page;
     startAt = 501; // default 501
@@ -11,8 +14,8 @@ export class DartGame {
     player_1 = null;
     player_2 = null;
     player_to_start = null;
-    bull_winner_id = null;
-    bull_lozer_id = null;
+
+    game = null;
 
     constructor(page) {
         this.page = page;
@@ -37,10 +40,10 @@ export class DartGame {
             })
 
             if (player === "player_1") {
-                this.page.select_player_1.append(select);
+                this.page.getElements().select_player_1.append(select);
             }
             else if (player === "player_2") {
-                this.page.select_player_2.append(select);
+                this.page.getElements().select_player_2.append(select);
             }
         }
     }
@@ -59,34 +62,33 @@ export class DartGame {
     }
 
     setEventListeners() {
-        for (const button of this.page.startAtButtons) {
+        for (const button of this.page.getElements().startAtButtons) {
             button.addEventListener('click', () => {
                 this.selectStartAt(button);
             });
         }
 
-        for (const button of this.page.bestOfButtons) {
+        for (const button of this.page.getElements().bestOfButtons) {
             button.addEventListener('click', () => {
                 this.selectBestOf(button);
             });
         }
 
-        this.page.gameOn.addEventListener("click", () => {
+        this.page.getElements().gameOn.addEventListener("click", () => {
             this.gameOn();
         });
 
-        for (const keyPadKey of this.page.key_pad_keys) {
+        for (const keyPadKey of this.page.getElements().key_pad_keys) {
             keyPadKey.addEventListener('click', () => {
 
                 if ("B" === keyPadKey.dataset.number) {
-                    this.page.key_pad_screen.innerText = this.page.key_pad_screen.innerText.slice(0, -1);
+                    this.page.getElements().key_pad_screen.innerText = this.page.getElements().key_pad_screen.innerText.slice(0, -1);
                 } else if ("E" === keyPadKey.dataset.number) {
-                    if ("" === this.page.key_pad_screen.innerText) {
-                        this.page.key_pad_screen.innerText = 0;
-
+                    if ("" === this.page.getElements().key_pad_screen.innerText) {
+                        this.page.getElements().key_pad_screen.innerText = 0;
                     }
                 } else {
-                    this.page.key_pad_screen.innerText = `${this.page.key_pad_screen.innerText}${keyPadKey.dataset.number}`;
+                    this.page.getElements().key_pad_screen.innerText = `${this.page.getElements().key_pad_screen.innerText}${keyPadKey.dataset.number}`;
                 }
             });
         }
@@ -103,23 +105,32 @@ export class DartGame {
             return;
         }
 
-        this.page.bull_player_1.dataset.id = this.player_1;
-        this.page.bull_player_2.dataset.id = this.player_2;
-        this.page.bull_player_1.innerText = this.player_1;
-        this.page.bull_player_2.innerText = this.player_2;
-        this.page.bull_panel.classList.toggle("noShow");
-        this.page.settings_panel.classList.toggle("noShow");
+        this.page.getElements().bull_player_1.dataset.name = this.player_1;
+        this.page.getElements().bull_player_2.dataset.name = this.player_2;
+        this.page.getElements().bull_player_1.innerText = this.player_1;
+        this.page.getElements().bull_player_2.innerText = this.player_2;
+        this.page.getElements().bull_panel.classList.toggle("noShow");
+        this.page.getElements().settings_panel.classList.toggle("noShow");
 
-        for (const button of this.page.bullWinnerButtons) {
+        for (const button of this.page.getElements().bullWinnerButtons) {
             button.addEventListener("click", () => {
-                this.player_to_start = button.dataset.id;
-                this.createGame();
+                const bullWinner = button.dataset.name;
+                this.game = new Game(Date.now(), this.startAt, this.bestOf);
+
+                this.game.addPlayer(new Player(bullWinner, true));
+                this.game.addPlayer(new Player(
+                    (this.player_1 === bullWinner) ? this.player_2 : this.player_1,
+                    false
+                ));
+                this.page.togglePanels();
+
+                console.log(this);
             });
         }
     }
 
     selectStartAt(startAtButton) {
-        for (const button of this.page.startAtButtons) {
+        for (const button of this.page.getElements().startAtButtons) {
             button.classList.remove("default");
         }
 
@@ -128,34 +139,11 @@ export class DartGame {
     }
 
     selectBestOf(bestOfButton) {
-        for (const button of this.page.bestOfButtons) {
+        for (const button of this.page.getElements().bestOfButtons) {
             button.classList.remove("default");
         }
 
         this.bestOf = bestOfButton.dataset.bestOf;
         bestOfButton.classList.add("default");
-    }
-
-    createGame() {
-        this.page.bull_panel.classList.toggle("noShow");
-        this.page.game_panel.classList.toggle("noShow");
-        localStorage.setItem('current_game', (Date.now()).toString());
-
-        this.bull_winner_id = ((this.player_1 === this.player_to_start) ? this.player_1 : this.player_2).replaceAll(/\s+/g, '');
-        this.bull_lozer_id = ((this.player_2 === this.player_to_start) ? this.player_1 : this.player_2).replaceAll(/\s+/g, '');
-
-        const nameTag = document.createElement("div");
-        nameTag.id = this.bull_winner_id;
-        nameTag.innerText = (this.player_1 === this.player_to_start) ? this.player_1 : this.player_2;
-        this.page.bull_winner.append(nameTag);
-        const scoreTag = document.createElement("div");
-        scoreTag.classList.add("score");
-        scoreTag.innerText = this.startAt;
-        this.page.bull_winner.append(scoreTag);
-
-        const nameTag2 = document.createElement("div");
-        nameTag2.id = this.bull_lozer_id;
-        nameTag2.innerText = (this.player_2 === this.player_to_start) ? this.player_1 : this.player_2;
-        this.page.bull_lozer.append(nameTag2);
     }
 }
